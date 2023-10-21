@@ -18,11 +18,12 @@ PATCH_VERSION := $(shell dpkg-parsechangelog -SVersion -l debian/changelog | sed
 
 srctree ?= .
 
-config:
-	@cp debian/control.stub debian/control
+control:
+	@cp debian/control.d/rockchip debian/control
 	@sed -i "s/\$${kernel-version}/$(KDEB_PKGVERSION)/g" debian/control
 	@sed -i "s/\$${patch-version}/$(PATCH_VERSION)/g" debian/control
 
+config:
 	@echo $(PATCH_VERSION)-1 | bc > .version
 	@touch .scmversion
 	$(MAKE) rockchip_linux_defconfig \
@@ -31,7 +32,7 @@ config:
 	  $(NJOBS)
 
 build-indep:
-build-arch: config
+build-arch: config control
 	$(MAKE) -f $(srctree)/Makefile \
 	  KERNELRELEASE=$(KDEB_PKGVERSION)-$(PATCH_VERSION)-rockchip \
 	  KDEB_PKGVERSION=$(KDEB_PKGVERSION)-$(PATCH_VERSION) \
@@ -50,7 +51,7 @@ binary-arch: build-arch
 	  ARCH=arm64 \
 	  $(NJOBS)
 	
-clean:
+clean: control
 	@rm -rf debian/*tmp debian/files
 	$(MAKE) clean
 

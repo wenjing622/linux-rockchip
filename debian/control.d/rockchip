@@ -1,4 +1,4 @@
-Source: linux-rockchip
+Source: linux-rockchip-5.10
 Section: kernel
 Priority: optional
 Maintainer: Joshua Riek <jjriek@verizon.net>
@@ -13,7 +13,7 @@ Description: Linux kernel image for version ${kernel-version} on arm64
  This package contains the Linux kernel image for version ${kernel-version} arm64.
  .
  You likely do not want to install this package directly. Instead, install
- the linux-rockchip meta-package, which will ensure that upgrades work
+ the linux-rockchip-5.10 meta-package, which will ensure that upgrades work
  correctly, and that supporting packages are also installed.
 
 Package: linux-headers-${kernel-version}-${patch-version}-rockchip
@@ -23,5 +23,5 @@ Description: Linux kernel headers for version ${kernel-version} on arm64
  This package contains the Linux kernel headers for version ${kernel-version} arm64.
  .
  You likely do not want to install this package directly. Instead, install
- the linux-rockchip meta-package, which will ensure that upgrades work
+ the linux-rockchip-5.10 meta-package, which will ensure that upgrades work
  correctly, and that supporting packages are also installed.
