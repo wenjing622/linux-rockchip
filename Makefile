@@ -1017,6 +1017,8 @@ KBUILD_CFLAGS += -Wvla
 # disable pointer signed / unsigned warnings in gcc 4.0
 KBUILD_CFLAGS += -Wno-pointer-sign
 
+KBUILD_CFLAGS += $(call cc-disable-warning, unused-function)
+
 # disable stringop warnings in gcc 8+
 KBUILD_CFLAGS += $(call cc-disable-warning, stringop-truncation)
 
