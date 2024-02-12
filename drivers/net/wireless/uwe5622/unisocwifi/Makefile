@@ -5,7 +5,9 @@ all_dependencies := driver
 ifneq ($(UNISOC_BSP_INCLUDE),)
 ccflags-y += -I$(UNISOC_BSP_INCLUDE)
 endif
-
+ccflags-y += -I$(srctree)/drivers/net/wireless/uwe5622/sprdwcn/include
+ccflags-y += -I$(srctree)/drivers/net/wireless/uwe5622/unisocwcn/platform
+ccflags-y += -I$(srctree)/drivers/net/wireless/uwe5622/unisocwcn/include
 ifneq ($(UNISOC_WIFI_CUS_CONFIG),)
 ccflags-y += -DCUSTOMIZE_WIFI_CFG_PATH=\"$(UNISOC_WIFI_CUS_CONFIG)\"
 endif

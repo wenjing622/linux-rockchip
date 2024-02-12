@@ -42,6 +42,7 @@ wcn_platform-c-objs +=  wcn_procfs.o \
 			rf/rf.o \
 			bufring.o
 
+ccflags-y += -I$(srctree)/drivers/net/wireless/uwe5622/unisocwcn/include
 ccflags-y += -Wno-sizeof-pointer-memaccess
 ifeq ($(CONFIG_SC2342_INTEG),y)
 wcn_platform-c-objs += wcn_dump_integrate.o

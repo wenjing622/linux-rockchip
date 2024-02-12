@@ -132,6 +132,8 @@ ccflags-y += -DCONFIG_WCN_UTILS
 ccflags-y += -I$(src)/include/
 ccflags-y += -I$(src)/platform/
 ccflags-y += -I$(src)/platform/rf/
+ccflags-y += -I$(srctree)/drivers/net/wireless/uwe5622/unisocwcn/include
+ccflags-y += -I$(srctree)/drivers/net/wireless/uwe5622/unisocwcn/platform
 
 #### add cflag for Customer ######
 ### ---------- Hisilicon start ---------- ###

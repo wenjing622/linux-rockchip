@@ -5,6 +5,8 @@ endif
 # ccflags-y += -DDEBUG
 # ccflags-y += -DKERNEL_VERSION_414
 ccflags-y += -I$(srctree)/drivers/net/wireless/uwe5622/sprdwcn/include
+ccflags-y += -I$(srctree)/drivers/net/wireless/uwe5622/unisocwcn/platform
+ccflags-y += -I$(srctree)/drivers/net/wireless/uwe5622/unisocwcn/include
 #ccflags-y += -DOTT_UWE
 ccflags-y += -DWOBLE_FUN
 ccflags-y += -Wno-implicit-fallthrough
