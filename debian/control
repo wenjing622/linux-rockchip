@@ -1,0 +1,225 @@
+Source: linux-rockchip-6.1
+Section: devel
+Priority: optional
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Standards-Version: 3.9.4.0
+Build-Depends:
+ gcc, gcc-aarch64-linux-gnu [arm64] <cross>, gcc-arm-linux-gnueabihf [armhf] <cross>, gcc-powerpc64le-linux-gnu [ppc64el] <cross>, gcc-riscv64-linux-gnu [riscv64] <cross>, gcc-s390x-linux-gnu [s390x] <cross>, gcc-x86-64-linux-gnu [amd64] <cross>,
+ debhelper-compat (= 10),
+ cpio,
+ kmod <!stage1>,
+ makedumpfile [amd64] <!stage1>,
+ libcap-dev <!stage1>,
+ libelf-dev <!stage1>,
+ libnewt-dev <!stage1>,
+ libiberty-dev <!stage1>,
+ default-jdk-headless <!stage1>,
+ java-common <!stage1>,
+ rsync <!stage1>,
+ libdw-dev <!stage1>,
+ libpci-dev <!stage1>,
+ pkg-config <!stage1>,
+ python3 <!stage1>,
+ flex <!stage1>,
+ bison <!stage1>,
+ libunwind8-dev [amd64 arm64 armhf ppc64el] <!stage1>,
+ liblzma-dev <!stage1>,
+ openssl <!stage1>,
+ libssl-dev <!stage1>,
+ libaudit-dev <!stage1>,
+ bc <!stage1>,
+ gawk <!stage1>,
+ libudev-dev <!stage1>,
+ autoconf <!stage1>,
+ automake <!stage1>,
+ libtool <!stage1>,
+ uuid-dev <!stage1>,
+ libnuma-dev [amd64 arm64 ppc64el s390x] <!stage1>,
+ dkms <!stage1>,
+ curl <!stage1>,
+ zstd [amd64 s390x] <!stage1>,
+ rust-all <!stage1>,
+ rust-src <!stage1>,
+ bindgen <!stage1>,
+ pahole [amd64 arm64 armhf ppc64el s390x riscv64] | dwarves (>= 1.21) [amd64 arm64 armhf ppc64el s390x riscv64] <!stage1>,
+Build-Depends-Indep:
+ xmlto <!stage1>,
+ docbook-utils <!stage1>,
+ ghostscript <!stage1>,
+ fig2dev <!stage1>,
+ bzip2 <!stage1>,
+ sharutils <!stage1>,
+ asciidoc <!stage1>,
+ python3-dev <!stage1>,
+ python3-sphinx <!stage1>,
+ python3-sphinx-rtd-theme <!stage1>,
+ fontconfig <!stage1>,
+ python3-docutils <!stage1>,
+ imagemagick <!stage1>,
+ graphviz <!stage1>,
+ dvipng <!stage1>,
+ fonts-noto-cjk <!stage1>,
+ latexmk <!stage1>,
+ librsvg2-bin <!stage1>,
+XS-Testsuite: autopkgtest
+#XS-Testsuite-Depends: gcc-4.7 binutils
+
+Package: linux-rockchip-6.1-headers-6.1.43-1
+Build-Profiles: <!stage1>
+Architecture: arm64
+Multi-Arch: foreign
+Section: devel
+Priority: optional
+Depends: ${misc:Depends}, coreutils
+Description: Header files related to Linux kernel version 6.1.43
+ This package provides kernel header files for version 6.1.43, for sites
+ that want the latest kernel headers. Please read
+ /usr/share/doc/linux-rockchip-6.1-headers-6.1.43-1/debian.README.gz for details
+
+Package: linux-rockchip-6.1-tools-6.1.43-1
+Build-Profiles: <!stage1>
+Architecture: arm64
+Section: devel
+Priority: optional
+Depends: ${misc:Depends}, ${shlibs:Depends}, linux-tools-common
+Description: Linux kernel version specific tools for version 6.1.43-1
+ This package provides the architecture dependant parts for kernel
+ version locked tools (such as perf and x86_energy_perf_policy) for
+ version 6.1.43-1 on
+ ARMv8.
+ You probably want to install linux-tools-6.1.43-1-<flavour>.
+
+
+Package: linux-image-6.1.43-1-rockchip
+Build-Profiles: <!stage1>
+Architecture: arm64
+Section: kernel
+Priority: optional
+Provides: linux-image, fuse-module, kvm-api-4, redhat-cluster-modules, ivtv-modules, ${linux:rprovides}
+Depends: ${misc:Depends}, ${shlibs:Depends}, kmod, linux-base (>= 4.5ubuntu1~16.04.1), linux-modules-6.1.43-1-rockchip
+Recommends: grub-pc [amd64] | grub-efi-amd64 [amd64] | grub-efi-ia32 [amd64] | grub [amd64] | lilo [amd64] | flash-kernel [armhf arm64] | grub-efi-arm64 [arm64] | grub-efi-arm [armhf] | grub-ieee1275 [ppc64el], initramfs-tools | linux-initramfs-tool
+Breaks: flash-kernel (<< 3.90ubuntu2) [arm64 armhf], s390-tools (<< 2.3.0-0ubuntu3) [s390x]
+Conflicts: linux-image-unsigned-6.1.43-1-rockchip
+Suggests: fdutils, linux-rockchip-6.1-tools, linux-headers-6.1.43-1-rockchip
+Description: Linux kernel image for version 6.1.43 on ARMv8 SMP
+ This package contains the Linux kernel image for version 6.1.43 on
+ ARMv8 SMP.
+ .
+ Supports ROCKCHIP processors.
+ .
+ Geared toward Rockchip hardware.
+ .
+ You likely do not want to install this package directly. Instead, install
+ the linux-rockchip meta-package, which will ensure that upgrades work
+ correctly, and that supporting packages are also installed.
+
+Package: linux-modules-6.1.43-1-rockchip
+Build-Profiles: <!stage1>
+Architecture: arm64
+Section: kernel
+Priority: optional
+Depends: ${misc:Depends}, ${shlibs:Depends}, linux-image-6.1.43-1-rockchip | linux-image-unsigned-6.1.43-1-rockchip
+Built-Using: ${linux:BuiltUsing}
+Description: Linux kernel extra modules for version 6.1.43 on ARMv8 SMP
+ Contains the corresponding System.map file, the modules built by the
+ packager, and scripts that try to ensure that the system is not left in an
+ unbootable state after an update.
+ .
+ Supports ROCKCHIP processors.
+ .
+ Geared toward Rockchip hardware.
+ .
+ You likely do not want to install this package directly. Instead, install
+ the linux-rockchip meta-package, which will ensure that upgrades work
+ correctly, and that supporting packages are also installed.
+
+Package: linux-modules-extra-6.1.43-1-rockchip
+Build-Profiles: <!stage1>
+Architecture: arm64
+Section: kernel
+Priority: optional
+Depends: ${misc:Depends}, ${shlibs:Depends}, linux-image-6.1.43-1-rockchip | linux-image-unsigned-6.1.43-1-rockchip, wireless-regdb
+Description: Linux kernel extra modules for version 6.1.43 on ARMv8 SMP
+ This package contains the Linux kernel extra modules for version 6.1.43 on
+ ARMv8 SMP.
+ .
+ Also includes the corresponding System.map file, the modules built by the
+ packager, and scripts that try to ensure that the system is not left in an
+ unbootable state after an update.
+ .
+ Supports ROCKCHIP processors.
+ .
+ Geared toward Rockchip hardware.
+ .
+ You likely do not want to install this package directly. Instead, install
+ the linux-rockchip meta-package, which will ensure that upgrades work
+ correctly, and that supporting packages are also installed.
+
+Package: linux-headers-6.1.43-1-rockchip
+Build-Profiles: <!stage1>
+Architecture: arm64
+Section: devel
+Priority: optional
+Depends: ${misc:Depends}, linux-rockchip-6.1-headers-6.1.43-1, ${shlibs:Depends}
+Provides: linux-headers, linux-headers-3.0
+Description: Linux kernel headers for version 6.1.43 on ARMv8 SMP
+ This package provides kernel header files for version 6.1.43 on
+ ARMv8 SMP.
+ .
+ This is for sites that want the latest kernel headers.  Please read
+ /usr/share/doc/linux-headers-6.1.43-1/debian.README.gz for details.
+
+Package: linux-image-6.1.43-1-rockchip-dbgsym
+Build-Profiles: <!stage1>
+Architecture: arm64
+Section: devel
+Priority: optional
+Depends: ${misc:Depends}
+Provides: linux-debug
+Description: Linux kernel debug image for version 6.1.43 on ARMv8 SMP
+ This package provides the kernel debug image for version 6.1.43 on
+ ARMv8 SMP.
+ .
+ This is for sites that wish to debug the kernel.
+ .
+ The kernel image contained in this package is NOT meant to boot from. It
+ is uncompressed, and unstripped. This package also includes the
+ unstripped modules.
+
+Package: linux-tools-6.1.43-1-rockchip
+Build-Profiles: <!stage1>
+Architecture: arm64
+Section: devel
+Priority: optional
+Depends: ${misc:Depends}, linux-rockchip-6.1-tools-6.1.43-1
+Description: Linux kernel version specific tools for version 6.1.43-1
+ This package provides the architecture dependant parts for kernel
+ version locked tools (such as perf and x86_energy_perf_policy) for
+ version 6.1.43-1 on
+ ARMv8.
+
+Package: linux-cloud-tools-6.1.43-1-rockchip
+Build-Profiles: <!stage1>
+Architecture: arm64
+Section: devel
+Priority: optional
+Depends: ${misc:Depends}, linux-rockchip-6.1-cloud-tools-6.1.43-1
+Description: Linux kernel version specific cloud tools for version 6.1.43-1
+ This package provides the architecture dependant parts for kernel
+ version locked tools for cloud for version 6.1.43-1 on
+ ARMv8.
+
+
+Package: linux-buildinfo-6.1.43-1-rockchip
+Build-Profiles: <!stage1>
+Architecture: arm64
+Section: kernel
+Priority: optional
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Built-Using: ${linux:BuiltUsing}
+Description: Linux kernel buildinfo for version 6.1.43 on ARMv8 SMP
+ This package contains the Linux kernel buildinfo for version 6.1.43 on
+ ARMv8 SMP.
+ .
+ You likely do not want to install this package.
+
