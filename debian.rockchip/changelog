@@ -1,3 +1,9 @@
+linux-rockchip-6.1 (6.1.43-1.2) jammy; urgency=medium
+
+  * fix
+
+ -- Joshua Riek <jjriek@verizon.net>  Wed, 14 Feb 2024 11:55:39 -0500
+
 linux-rockchip-6.1 (6.1.43-1.1) jammy; urgency=medium
 
   * WIP
