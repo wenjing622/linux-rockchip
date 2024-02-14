@@ -1,27 +1,28 @@
 # Check ABI for package against last release (if not same abinum)
 abi-check-%: $(stampdir)/stamp-install-%
 	@echo Debug: $@
-	@perl -f $(DROOT)/scripts/abi-check "$*" "$(prev_abinum)" "$(abinum)" \
-		"$(prev_abidir)" "$(abidir)" "$(skipabi)"
+	$(DROOT)/scripts/checks/abi-check "$*" \
+		"$(prev_abidir)" "$(abidir)" $(do_skip_checks)
 
 # Check the module list against the last release (always)
 module-check-%: $(stampdir)/stamp-install-%
 	@echo Debug: $@
-	$(DROOT)/scripts/module-check "$*" \
-		"$(prev_abidir)" "$(abidir)" $(skipmodule)
+	$(DROOT)/scripts/checks/module-check "$*" \
+		"$(prev_abidir)" "$(abidir)" $(do_skip_checks)
 
 # Check the signature of staging modules
 module-signature-check-%: $(stampdir)/stamp-install-%
 	@echo Debug: $@
-	$(DROOT)/scripts/module-signature-check "$*" \
+	$(DROOT)/scripts/checks/module-signature-check "$*" \
 		"$(DROOT)/$(mods_pkg_name)-$*" \
-		"$(DROOT)/$(mods_extra_pkg_name)-$*"
+		"$(DROOT)/$(mods_extra_pkg_name)-$*" \
+		$(do_skip_checks)
 
 # Check the reptoline jmp/call functions against the last release.
 retpoline-check-%: $(stampdir)/stamp-install-%
 	@echo Debug: $@
-	$(SHELL) $(DROOT)/scripts/retpoline-check "$*" \
-		"$(prev_abidir)" "$(abidir)" "$(skipretpoline)" "$(builddir)/build-$*"
+	$(DROOT)/scripts/checks/retpoline-check "$*" \
+		"$(prev_abidir)" "$(abidir)" $(do_skip_checks)
 
 checks-%: module-check-% module-signature-check-% abi-check-% retpoline-check-%
 	@echo Debug: $@
@@ -29,12 +30,13 @@ checks-%: module-check-% module-signature-check-% abi-check-% retpoline-check-%
 # Check the config against the known options list.
 config-prepare-check-%: $(stampdir)/stamp-prepare-tree-%
 	@echo Debug: $@
+ifneq ($(do_skip_checks),true)
 	if [ -e $(commonconfdir)/config.common.ubuntu ]; then \
-		perl -f $(DROOT)/scripts/config-check \
+		perl -f $(DROOT)/scripts/checks/config-check \
 			$(builddir)/build-$*/.config "$(arch)" "$*" "$(commonconfdir)" \
 			"$(skipconfig)" "$(do_enforce_all)"; \
 	else \
 		python3 $(DROOT)/scripts/misc/annotations -f $(commonconfdir)/annotations \
 			--arch $(arch) --flavour $* --check $(builddir)/build-$*/.config; \
 	fi
-
+endif
