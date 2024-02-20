@@ -1060,6 +1060,9 @@ endif
 KBUILD_CFLAGS-$(call gcc-min-version, 90100) += -Wno-alloc-size-larger-than
 KBUILD_CFLAGS += $(KBUILD_CFLAGS-y) $(CONFIG_CC_IMPLICIT_FALLTHROUGH)
 
+# Added because of Rockchip wireless lan drivers
+KBUILD_CFLAGS  += $(call cc-disable-warning, implicit-fallthrough)
+
 # disable invalid "can't wrap" optimizations for signed / pointers
 KBUILD_CFLAGS	+= -fno-strict-overflow
 
