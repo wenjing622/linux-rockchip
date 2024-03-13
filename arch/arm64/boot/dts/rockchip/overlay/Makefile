@@ -57,6 +57,7 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	yy3568-display-dsi1.dtbo \
 	yy3568-display-edp.dtbo \
 	yy3568-sata2.dtbo \
+	max1726x_battery.dtbo \
 	rockchip-rk3588-opp-oc-24ghz.dtbo \
 	rk3588-can0-m0.dtbo \
 	rk3588-can1-m0.dtbo \
