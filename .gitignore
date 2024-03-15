@@ -51,6 +51,10 @@ Module.symvers
 modules.builtin
 modules.order
 
+# cwj
+*.cmd
+.tmp_*
+
 #
 # Top-level generic files
 #
